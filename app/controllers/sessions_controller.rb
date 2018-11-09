@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
 
   def new
+    # debugger
   end
 
   def create
@@ -9,7 +10,7 @@ class SessionsController < ApplicationController
       log_in @user
       #チェックボックスONOFFで切り替え
       params[:session][:remember_me] == '1' ? remember(@user) : forget(@user) #どこからでも呼べるsessions_helperのrememberメソッドを呼び出す
-      redirect_to @user
+      redirect_back_or @user
     else
       flash.now[:danger] = 'Invalid email/password combination'
       render 'new'
