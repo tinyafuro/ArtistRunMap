@@ -8,4 +8,16 @@
       </h1>
     </section>
   </aside>
+
+  <!-- Place情報 -->
+  <div class="col-md-8">
+    <% if @user.place.any? %>
+      <h3>Places (<%= @user.place.count %>)</h3>
+      <ol class="places">
+        <%= render @places %>
+      </ol>
+      <%= will_paginate @places %>
+    <% end %>
+  </div>
+
 </div>

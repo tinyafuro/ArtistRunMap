@@ -80,4 +80,14 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.authenticated?('')
   end
 
+  #ユーザ削除時にPlaceも同時に削除されているかどうかのテスト
+  test "associated places should be destroyed" do
+    @user.save
+    @user.place.create!(name: "Lorem", address: "LoremHouse")
+    assert_difference 'Place.count', -1 do
+      @user.destroy
+    end
+  end
+
+
 end

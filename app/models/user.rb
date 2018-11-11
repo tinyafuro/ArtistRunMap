@@ -1,4 +1,8 @@
 class User < ApplicationRecord
+
+    #User／Placeの関連付け（１対多）
+    has_many :place, dependent: :destroy
+    
     #トークンのローカル変数
     attr_accessor :remember_token
 
@@ -15,6 +19,11 @@ class User < ApplicationRecord
     has_secure_password
     #password属性のバリデーション
     validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+
+    # 試作feedの定義
+    def feed
+        Place.where("user_id = ?", id)
+    end
 
     # 渡された文字列のハッシュ値を返す
     def User.digest(string)
