@@ -76,5 +76,16 @@ module SessionsHelper
 	def store_location
 		session[:forwarding_url] = request.original_url if request.get?
 	end
+
+	# Placeの削除ボタンで元のURLへ戻る
+	def redirect_before_url(default = root_path)
+		return session[:before_forwarding_url] || default
+		session.delete(:before_forwarding_url)
+	end
+
+	# 次の画面へアクセスする前に現在のURLを覚えておく
+	def before_location(current_url)
+		session[:before_forwarding_url] = current_url
+	end
 	
 end

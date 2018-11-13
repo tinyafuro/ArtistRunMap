@@ -4,17 +4,24 @@
   <%= link_to gravatar_for(place.user, size: 50), place.user %>
   <!-- ユーザー名 -->
   <span class="user"><%= link_to place.user.name, place.user %></span>
+
   <!-- Place名 -->
   <span class="place_name"><%= place.name %></span>
   <!-- Place住所 -->
   <span class="place_address">
     <%= place.address %>
     <!-- アップロードPicture -->
-    <%= image_tag place.picture.url if place.picture? %>
+    <!--<%= image_tag place.picture.url if place.picture? %>-->
   </span>
-  <!-- Delete -->
+
+  <!-- 詳細表示ボタン -->
+  <%= link_to "詳細", place, class: "btn btn-sm btn-primary"%>
+
+  <!-- 削除ボタン -->
+  <!--
   <% if current_user?(place.user) %>
-      <%= link_to "delete", place, method: :delete, data: { confirm: "You sure?" } %>
+      <%= link_to "削除", place, class: "btn btn-sm btn-primary", method: :delete, data: { confirm: "You sure?" } %>
   <% end %>
+  -->
 
 </li>
