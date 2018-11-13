@@ -3,6 +3,10 @@ class Place < ApplicationRecord
   #User／Placeの関連付け（１対１）
   belongs_to :user
 
+  #ジオコーディング
+  geocoded_by :address
+  after_validation :geocode, if: lambda {|obj| obj.address_changed?}
+
   #デフォルトの順序を指定
   default_scope -> { order(created_at: :desc) }
 

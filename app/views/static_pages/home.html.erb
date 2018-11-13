@@ -30,6 +30,20 @@
     <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
   </div>
 
+  <!-- GoogleMap -->
+  <div id="map" style='width: 800px; height: 400px;'></div>
+  <script type="text/javascript">
+    handler = Gmaps.build('Google');
+    handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+      markers = handler.addMarkers(<%=raw @hash.to_json %>);
+      handler.bounds.extendWith(markers);
+      handler.fitMapToBounds();
+      //自動で拡大縮小させたくない場合は以下のセンター座標と拡大レベルを指定する
+      // handler.getMap().setCenter(new google.maps.LatLng(35.681298, 139.7640582));
+      // handler.getMap().setZoom(13);
+    });
+  </script>
+
   <%= link_to image_tag("rails.png", alt: "Rails logo"),
               'http://rubyonrails.org/' %>
 <% end %>

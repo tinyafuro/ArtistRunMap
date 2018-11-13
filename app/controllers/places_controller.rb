@@ -11,6 +11,12 @@ class PlacesController < ApplicationController
 
 	def show
 		@place = Place.find(params[:id])
+
+		@hash = Gmaps4rails.build_markers(@place) do |place, marker|
+			marker.lat place.latitude
+			marker.lng place.longitude
+			marker.infowindow place.name
+		end
 	end
 
 	def create
@@ -48,7 +54,7 @@ class PlacesController < ApplicationController
 	private
 
 		def place_params
-			params.require(:place).permit(:name, :address, :picture)
+			params.require(:place).permit(:name, :address, :picture, :latitude, :longitude)
 		end
 
 		def correct_user

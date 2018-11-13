@@ -14,6 +14,22 @@
 			<%= image_tag @place.picture.url if @place.picture? %>
 		</span>
 
+		<!-- GoogleMap -->
+		<% if( @place.latitude && @place.longitude ) %>
+			<div id="map" style='width: 640px; height: 320px;'></div>
+
+			<script type="text/javascript">
+				handler = Gmaps.build('Google');
+				handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+				markers = handler.addMarkers(<%=raw @hash.to_json %>);
+				handler.bounds.extendWith(markers);
+				handler.fitMapToBounds();
+				handler.getMap().setZoom(16);
+				});
+			</script>
+		<% end %>
+
+
 		<!-- 編集・削除 ボタン -->
 		<% if current_user?(@place.user) %>
 			<%= link_to "編集", edit_place_path(@place), class: "btn btn-sm btn-primary" %>
